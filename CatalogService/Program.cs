@@ -14,12 +14,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-List<Product> products =
-[
-    new() { Id = 1, Name = "Product 1", Description = "Description 1", Price = 10.99m, Category = "Category A" },
-    new() { Id = 2, Name = "Product 2", Description = "Description 2", Price = 20.99m, Category = "Category B" },
-    new() { Id = 3, Name = "Product 3", Description = "Description 3", Price = 30.99m, Category = "Category C" }
-];
+List<Product> products = [];
+for (int i = 0; i <= 25; i++)
+{
+    products.Add(new Product
+    {
+        Id = i,
+        Name = $"Product {i}",
+        Description = $"Description for Product {i}",
+        Price = 10.99m + i, // Example price increment
+        Category = "Category " + (char)('A' + (i % 3)) // Example category assignment
+    });
+}
 
 app.MapGet("/products", () => Results.Ok(products))
     .WithName("GetProducts");
